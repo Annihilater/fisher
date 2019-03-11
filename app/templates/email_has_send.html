@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block head %}
+    {{ super() }}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css')}}">
+{% endblock %}
+{% block navbar %}
+{% endblock %}
+{% block content %}
+    <div class="row">
+        <div class="col-md-12">
+            <h6>恭喜您成功注册鱼书</h6>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,58 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+    <ul>{{ super() }}</ul>
+
+    这里是七月教程！
+
+    {{ data.name }}
+    {{ data['name'] }}
+    {{ data.age }}
+    {{ data1.name }}
+    {{ data1.age }}
+
+    {% if data.age < 18 %}
+        <ul>{{ data.name }}</ul>
+    {% elif data.age == 18%}
+        <ul>do some thing</ul>
+        <ul>{{ data.school | default('未名') }}</ul>
+    {% else %}
+        <ul>{{ data.age }}</ul>
+    {% endif %}
+
+    {% for foo in [1,2,3,4,5] %}
+        {{ foo }}
+        <div>999</div>
+
+    {% endfor %}
+
+    {% for key, value in data.items() %}
+        {# 注意for后面跟的是键值对，用逗号分开。#}
+        {# data后面要加上iterms()，要确保是个可迭代对象，否则会报错 #}
+        {{ key }}
+        {{ value }}
+
+    {% endfor %}
+
+    <ul>
+        {% set messages = get_flashed_messages() %}
+        {{ messages }}
+    </ul>
+
+    <ul>
+        {% with messages = get_flashed_messages() %}
+            {% for message in messages  %}
+                <li>{{ messages }}</li>
+
+            {% endfor %}
+
+        {% endwith %}
+    </ul>
+
+{% endblock %}
+
+
+
+
+{# Jinja2 #}
+{# <模板语言></模板语言> #}

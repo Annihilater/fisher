@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+{#    <link rel="stylesheet" href="http://localhost/5000/static/test.css">#}
+{#    <link rel="stylesheet" href="../static/test.css">#}
+    <link rel="stylesheet" href="{{ url_for('static', filename='test.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='test.png') }}">
+
+</head>
+<body>
+    {% block head %}
+        <div>This is head!!!</div>
+    {% endblock %}
+
+    {% block content %}
+        <div>This is content!!!</div>
+    {% endblock %}
+
+    {% block foot %}
+        <div>This is foot!!!</div>
+    {% endblock %}
+</body>
+</html>
