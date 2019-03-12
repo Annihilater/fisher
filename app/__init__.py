@@ -11,8 +11,8 @@ mail = Mail()
 
 def create_app():
     app = Flask(__name__)
-    app.config.from_object('app.secure')
-    app.config.from_object('app.setting')
+    app.config.from_object("app.secure")
+    app.config.from_object("app.setting")
 
     register_blueprint(app)  # 调用蓝图注册函数
 
@@ -24,8 +24,8 @@ def create_app():
         db.create_all()
 
     login_manager.init_app(app)  # 初始化 login_manager
-    login_manager.login_view = 'web.login'
-    login_manager.login_message = '请先登录或注册'
+    login_manager.login_view = "web.login"
+    login_manager.login_message = "请先登录或注册"
 
     mail.init_app(app)
 
@@ -35,7 +35,9 @@ def create_app():
 
 def register_blueprint(flask_app):
     from app.web import web
+
     flask_app.register_blueprint(web)
+
 
 # def create_db_table():
 #     """

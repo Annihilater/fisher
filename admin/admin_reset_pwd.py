@@ -15,10 +15,10 @@ def admin_reset_password(uid, raw):  # 仅供开发的时候修改账户密码�
         user.password = raw
 
 
-if __name__ == '__main__':
-    user_id = input('请输入 user.id: ')
-    password = '0' * 8
+if __name__ == "__main__":
+    user_id = input("请输入 user.id: ")
+    password = "0" * 8
 
     with app.app_context():
         admin_reset_password(user_id, password)
-    print('id为 ' + str(user_id) + ' 的用户密码已重置为 ' + password)
+    print("id为 " + str(user_id) + " 的用户密码已重置为 " + password)

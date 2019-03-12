@@ -11,8 +11,9 @@ class YuShuBook:
     """
     对鱼书的API进行封装，所有的书籍信息都从这里获取
     """
-    isbn_url = 'http://t.yushu.im/v2/book/isbn/{}'
-    keyword_url = 'http://t.yushu.im/v2/book/search?q={}&count={}&start={}'
+
+    isbn_url = "http://t.yushu.im/v2/book/isbn/{}"
+    keyword_url = "http://t.yushu.im/v2/book/search?q={}&count={}&start={}"
 
     def __init__(self):
         self.total = 0
@@ -33,8 +34,8 @@ class YuShuBook:
             self.books.append(data)
 
     def __fill_collection(self, data):
-        self.total = data.get('total', None)
-        self.books = data.get('books', [])
+        self.total = data.get("total", None)
+        self.books = data.get("books", [])
 
     def search_by_isbn(self, isbn):
         url = self.isbn_url.format(isbn)
@@ -43,54 +44,54 @@ class YuShuBook:
 
     def search_by_keyword(self, keyword, page=1):
         url = self.keyword_url.format(
-            keyword,
-            current_app.config['PER_PAGE'],
-            self.calculate_start(page))
+            keyword, current_app.config["PER_PAGE"], self.calculate_start(page)
+        )
         result = HTTP.get(url)
         self.__fill_collection(result)
 
     @staticmethod
     def calculate_start(page):
-        return (page - 1) * current_app.config['PER_PAGE']
+        return (page - 1) * current_app.config["PER_PAGE"]
 
 
 def save_to_mysql(q, page=1):
     yushu_book.search_by_keyword(q, page)
     books = yushu_book.books
     for item in books:
-        if not Book.query.filter_by(isbn=item['isbn']).first():
-            del item['id']
-            item['author'] = '、'.join(item['author'])
-            item['translator'] = '、'.join(item['translator'])
-            print(item['title'])
+        if not Book.query.filter_by(isbn=item["isbn"]).first():
+            del item["id"]
+            item["author"] = "、".join(item["author"])
+            item["translator"] = "、".join(item["translator"])
+            print(item["title"])
             with db.auto_commit():
                 db.session.add(Book(**item))
-                print(q, item['title'] + '-----------入库成功 ok...')
+                print(q, item["title"] + "-----------入库成功 ok...")
         else:
-            print(q, item['title'] + ' ------------已存在')
+            print(q, item["title"] + " ------------已存在")
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     q_list = [
-        'c',
-        'go',
-        'c++',
-        'c#',
-        'java',
-        'mysql',
-        '数据库',
-        '算法',
-        'sql',
-        '架构',
-        '黑客',
-        '编程',
-        '鲁迅',
-        '老舍',
-        'flask',
-        'django',
-        'web',
-        'scrapy',
-        '爬虫']
+        "c",
+        "go",
+        "c++",
+        "c#",
+        "java",
+        "mysql",
+        "数据库",
+        "算法",
+        "sql",
+        "架构",
+        "黑客",
+        "编程",
+        "鲁迅",
+        "老舍",
+        "flask",
+        "django",
+        "web",
+        "scrapy",
+        "爬虫",
+    ]
     for j in range(4, len(q_list)):
         q = q_list[j]
         yushu_book = YuShuBook()

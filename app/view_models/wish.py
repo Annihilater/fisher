@@ -25,13 +25,9 @@ class MyWishes:
     def __matching(self, gift):
         count = 0
         for wish_count in self.__wish_count_list:
-            if wish_count['isbn'] == gift.isbn:
-                count = wish_count['count']
-        r = {
-            'id': gift.id,
-            'book': BookViewModel(gift.book),
-            'wishes_count': count
-        }
+            if wish_count["isbn"] == gift.isbn:
+                count = wish_count["count"]
+        r = {"id": gift.id, "book": BookViewModel(gift.book), "wishes_count": count}
         return r
         # my_gift = MyGift(gift.id, BookViewModel(gift.book), count)
         # return my_gift

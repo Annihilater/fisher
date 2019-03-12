@@ -7,15 +7,15 @@ from app.view_models.book import BookViewModel
 from . import web
 
 
-@web.route('/')
+@web.route("/")
 def index():
     recent_gifts = Gift.recent()
     books = [BookViewModel(gift.book) for gift in recent_gifts]
-    return render_template('index.html', recent=books)
+    return render_template("index.html", recent=books)
 
 
-@web.route('/personal')
+@web.route("/personal")
 @login_required
 def personal_center():
     user = User.query.get_or_404(current_user.id)
-    return render_template('personal.html', user=user)
+    return render_template("personal.html", user=user)

@@ -21,7 +21,7 @@ class User(UserMixin, Base):
     id = Column(Integer, primary_key=True)
     nickname = Column(String(24), nullable=False)
     phone_number = Column(String(18), unique=True)
-    _password = Column('password', String(128), nullable=False)
+    _password = Column("password", String(128), nullable=False)
     email = Column(String(50), unique=True, nullable=False)
     confirmed = Column(Boolean, default=False)
     beans = Column(Float, default=0)
@@ -42,7 +42,7 @@ class User(UserMixin, Base):
         return check_password_hash(self._password, raw)
 
     def can_save_to_list(self, isbn):
-        if is_isbn_or_key(isbn) != 'isbn':
+        if is_isbn_or_key(isbn) != "isbn":
             return False
         yushu_book = YuShuBook()
         yushu_book.search_by_isbn(isbn)
@@ -52,27 +52,25 @@ class User(UserMixin, Base):
         # 一个用户不能同时成为一本图书的赠送者和索要者
 
         # 这本图书既不在赠送清单中也不再心愿清单中才能添加
-        gifting = Gift.query.filter_by(
-            isbn=isbn, uid=self.id, launched=False).first()
-        wishing = Wish.query.filter_by(
-            isbn=isbn, uid=self.id, launched=False).first()
+        gifting = Gift.query.filter_by(isbn=isbn, uid=self.id, launched=False).first()
+        wishing = Wish.query.filter_by(isbn=isbn, uid=self.id, launched=False).first()
         if not gifting and not wishing:
             return True
         else:
             return False
 
     def generate_token(self, expiration=600):
-        s = Serializer(current_app.config['SECRET_KEY'], expiration)
-        return s.dumps({'id': self.id}).decode('utf-8')
+        s = Serializer(current_app.config["SECRET_KEY"], expiration)
+        return s.dumps({"id": self.id}).decode("utf-8")
 
     @staticmethod
     def reset_password(token, new_password):
-        s = Serializer(current_app.config['SECRET_KEY'])
+        s = Serializer(current_app.config["SECRET_KEY"])
         try:
-            data = s.loads(token.encode('utf-8'))
+            data = s.loads(token.encode("utf-8"))
         except BaseException:
             return False
-        uid = data.get('id')
+        uid = data.get("id")
         with db.auto_commit():
             user = User.query.get_or_404(uid)
             user.password = new_password
@@ -81,18 +79,18 @@ class User(UserMixin, Base):
     def can_send_drift(self):
         if self.beans < 1:
             return False
-        success_gifts_count = Gift.query.filter_by(
-            uid=self.id, launched=True).count()
+        success_gifts_count = Gift.query.filter_by(uid=self.id, launched=True).count()
         success_receive_count = Drift.query.filter_by(
-            requester_id=self.id, pending=PendingStatus.Success).count()
+            requester_id=self.id, pending=PendingStatus.Success
+        ).count()
 
-        return True if floor(
-            success_gifts_count /
-            2) <= success_receive_count else False
+        return (
+            True if floor(success_gifts_count / 2) <= success_receive_count else False
+        )
 
     @property
     def send_receive(self):
-        send_receive = str(self.send_counter) + '/' + str(self.receive_counter)
+        send_receive = str(self.send_counter) + "/" + str(self.receive_counter)
         return send_receive
 
     @property
@@ -101,7 +99,7 @@ class User(UserMixin, Base):
             nickname=self.nickname,
             beans=self.beans,
             email=self.email,
-            send_receive=str(self.send_counter) + '/' + str(self.receive_counter)
+            send_receive=str(self.send_counter) + "/" + str(self.receive_counter),
         )
 
 

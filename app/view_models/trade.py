@@ -17,14 +17,10 @@ class TradeInfo:
     @staticmethod
     def __map_to_trade(single):
         if single.create_datetime:
-            time = single.create_datetime.strftime('%Y-%m-%d')
+            time = single.create_datetime.strftime("%Y-%m-%d")
         else:
-            time = '未知'
-        return dict(
-            user_name=single.user.nickname,
-            time=time,
-            id=single.id
-        )
+            time = "未知"
+        return dict(user_name=single.user.nickname, time=time, id=single.id)
 
 
 class MyTrades:
@@ -46,13 +42,9 @@ class MyTrades:
     def __matching(self, trade):
         count = 0
         for trade_count in self.__trade_count_list:
-            if trade_count['isbn'] == trade.isbn:
-                count = trade_count['count']
-        r = {
-            'id': trade.id,
-            'book': BookViewModel(trade.book),
-            'trades_count': count
-        }
+            if trade_count["isbn"] == trade.isbn:
+                count = trade_count["count"]
+        r = {"id": trade.id, "book": BookViewModel(trade.book), "trades_count": count}
         return r
         # my_trade = MyTrades(trade.id, BookViewModel(trade.book), count)
         # return my_trade

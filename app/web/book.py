@@ -42,7 +42,7 @@ from app.spider.yushu_book import YuShuBook
 #     return ''
 
 
-@web.route('/book/search')
+@web.route("/book/search")
 def search():
     # q = request.args['q']
     # page = request.args['page']
@@ -57,7 +57,7 @@ def search():
         isbn_or_key = is_isbn_or_key(q)
         yushu_book = YuShuBook()
 
-        if isbn_or_key == 'isbn':
+        if isbn_or_key == "isbn":
             yushu_book.search_by_isbn(q)
         else:
             yushu_book.search_by_keyword(q, page)
@@ -65,13 +65,13 @@ def search():
         books.fill(yushu_book, q)
         # return json.dumps(books, default=lambda o: o.__dict__)
     else:
-        flash('搜索的关键字不符合要求，请重新输入关键字')
+        flash("搜索的关键字不符合要求，请重新输入关键字")
         # return jsonify(form.errors)
 
-    return render_template('search_result.html', books=books, form=form)
+    return render_template("search_result.html", books=books, form=form)
 
 
-@web.route('/book/<isbn>/detail')
+@web.route("/book/<isbn>/detail")
 def book_detail(isbn):
     has_in_gifts = False
     has_in_wishes = False
@@ -88,21 +88,16 @@ def book_detail(isbn):
     trade_wishes_model = TradeInfo(trade_wishes)
 
     if current_user.is_authenticated:
-        if Gift.query.filter_by(
-                isbn=isbn,
-                launched=False,
-                uid=current_user.id).first():
+        if Gift.query.filter_by(isbn=isbn, launched=False, uid=current_user.id).first():
             has_in_gifts = True
-        if Wish.query.filter_by(
-                isbn=isbn,
-                launched=False,
-                uid=current_user.id).first():
+        if Wish.query.filter_by(isbn=isbn, launched=False, uid=current_user.id).first():
             has_in_wishes = True
 
     return render_template(
-        'book_detail.html',
+        "book_detail.html",
         book=book,
         gifts=trade_gifts_model,
         wishes=trade_wishes_model,
         has_in_gifts=has_in_gifts,
-        has_in_wishes=has_in_wishes)
+        has_in_wishes=has_in_wishes,
+    )

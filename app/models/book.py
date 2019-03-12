@@ -7,7 +7,7 @@ class Book(Base):
     id = Column(Integer, primary_key=True, autoincrement=True)
     title = Column(String(1000), nullable=False)
     isbn = Column(String(15), nullable=False, unique=True)
-    author = Column(String(1000), default='未名')
+    author = Column(String(1000), default="未名")
     translator = Column(String(1000))
     binding = Column(String(100))
     publisher = Column(String(100))

@@ -18,9 +18,9 @@ def send_email(to, subject, template, **kwargs):
     # def send_email():
     #     msg = Message('测试邮件', sender='schip@qq.com', body='Test',
     #                   recipients=['schip@qq.com'])
-    msg = Message('鱼书' + '' + subject,
-                  sender=current_app.config['MAIL_USERNAME'],
-                  recipients=[to])
+    msg = Message(
+        "鱼书" + "" + subject, sender=current_app.config["MAIL_USERNAME"], recipients=[to]
+    )
     msg.html = render_template(template, **kwargs)
     app = current_app._get_current_object()
     thr = Thread(target=send_async_email, args=[app, msg])
@@ -28,6 +28,7 @@ def send_email(to, subject, template, **kwargs):
 
     # mail.send(msg)
     # 发送邮件
+
 
 # def send_email(to, subject, template, **kwargs):
 #     msg = Message('鱼书'+''+ subject,
