@@ -104,3 +104,8 @@ venv.bak/
 .mypy_cache/
 .idea/
 /app/secure.py
+/mysql/
+/nginx/
+/data/
+/docker-compose.yml
+/gunicorn/log/
