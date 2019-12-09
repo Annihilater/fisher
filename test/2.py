@@ -1,8 +1,8 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 # @Date  : 2019/2/26 14:20
-# @Author: PythonVampire
-# @email : vampire@ivamp.cn
+# @Author: yanmiexingkong
+# @email : yanmiexingkong@gmail.com
 # @File  : 2.py
 import threading
 import time

@@ -1,8 +1,8 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 # @Date  : 2019/3/1 01:05
-# @Author: PythonVampire
-# @email : vampire@ivamp.cn
+# @Author: yanmiexingkong
+# @email : yanmiexingkong@gmail.com
 # @File  : admin_reset_pwd.py
 from app import db
 from app.models.user import User
